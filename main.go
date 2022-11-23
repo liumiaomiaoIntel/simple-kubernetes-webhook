@@ -44,6 +44,7 @@ func ServeHealth(w http.ResponseWriter, r *http.Request) {
 func ServeValidatePods(w http.ResponseWriter, r *http.Request) {
 	logger := logrus.WithField("uri", r.RequestURI)
 	logger.Debug("received validation request")
+  logger.Debug("received validation request: %+v", r)
 
 	in, err := parseRequest(*r)
 	if err != nil {
@@ -59,7 +60,7 @@ func ServeValidatePods(w http.ResponseWriter, r *http.Request) {
 
 	out, err := adm.ValidatePodReview()
 	if err != nil {
-		e := fmt.Sprintf("could not generate admission response: %v", err)
+		e := fmt.Sprintf("hello world: %v", err)
 		logger.Error(e)
 		http.Error(w, e, http.StatusInternalServerError)
 		return

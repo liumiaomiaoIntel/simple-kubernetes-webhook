@@ -20,8 +20,7 @@ spec:
           operator: Exists
           effect: NoSchedule
       containers:
-        - image: simple-kubernetes-webhook:latest
-          imagePullPolicy: Never
+        - image: lmms.sh.intel.com:5000/webhook_demo:v20
           name: simple-kubernetes-webhook
           env:
             - name: TLS

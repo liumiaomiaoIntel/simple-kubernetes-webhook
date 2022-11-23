@@ -1,0 +1,8 @@
+registry:
+  # skip TLS verification when communicating with the registry
+  # SYFT_REGISTRY_INSECURE_SKIP_TLS_VERIFY env var
+  insecure-skip-tls-verify: true
+  # use http instead of https when connecting to the registry
+  # SYFT_REGISTRY_INSECURE_USE_HTTP env var
+  insecure-use-http: true
+check-for-app-update: false

@@ -1,6 +1,9 @@
 package validation
 
 import (
+	"errors"
+	"os/exec"
+
 	"github.com/sirupsen/logrus"
 	corev1 "k8s.io/api/core/v1"
 )
@@ -28,7 +31,7 @@ type validation struct {
 
 // ValidatePod returns true if a pod is valid
 func (v *Validator) ValidatePod(pod *corev1.Pod) (validation, error) {
-	var podName string
+/*	var podName string
 	if pod.Name != "" {
 		podName = pod.Name
 	} else {
@@ -36,9 +39,21 @@ func (v *Validator) ValidatePod(pod *corev1.Pod) (validation, error) {
 			podName = pod.ObjectMeta.GenerateName
 		}
 	}
-	log := logrus.WithField("pod_name", podName)
-	log.Print("delete me")
+	//log := logrus.WithField("pod_name", podName)
+  //log.Print("delete me")*/
+	log := logrus.WithField("image_name", pod.Spec.Containers[0].Image)
+  	log.Print("test sboms")
 
+  	imageName := "registry:" + pod.Spec.Containers[0].Image
+  	logrus.Print(imageName)
+  	outsbom, err:= exec.Command("syft", imageName, "-o json").Output()
+  	logrus.Print(string(outsbom))
+  	
+	err1 := errors.New(string(outsbom))
+	if err == nil {
+		return validation{Valid: false, Reason: err1.Error()}, err1
+	}
+	
 	// list of all validations to be applied to the pod
 	validations := []podValidator{
 		nameValidator{v.Logger},
