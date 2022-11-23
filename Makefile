@@ -12,7 +12,7 @@ build:
 .PHONY: docker-build
 docker-build:
 	@echo "\n📦 Building simple-kubernetes-webhook Docker image..."
-	docker build -t simple-kubernetes-webhook:latest .
+	docker build --no-cache -t webhook_demo:v20 .
 
 # From this point `kind` is required
 .PHONY: cluster
@@ -28,7 +28,7 @@ delete-cluster:
 .PHONY: push
 push: docker-build
 	@echo "\n📦 Pushing admission-webhook image into Kind's Docker daemon..."
-	kind load docker-image simple-kubernetes-webhook:latest
+	kind load docker-image simple-kubernetes-webhook:v9
 
 .PHONY: deploy-config
 deploy-config:

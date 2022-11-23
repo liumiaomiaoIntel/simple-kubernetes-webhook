@@ -10,6 +10,6 @@ spec:
     - args:
         - sleep
         - "3600"
-      image: busybox
+      image: lmms.sh.intel.com:5000/busybox:latest
       name: lifespan-seven
   restartPolicy: Always

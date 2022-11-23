@@ -25,6 +25,8 @@ func TestValidatePod(t *testing.T) {
 		},
 	}
 
+  log := logrus.WithField("image_name", pod.Spec.Containers[0].Image)
+  log.Print("test this")
 	val, err := v.ValidatePod(pod)
 	assert.Nil(t, err)
 	assert.True(t, val.Valid)
